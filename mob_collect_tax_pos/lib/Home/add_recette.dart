@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mob_collect_tax_pos/Home/search_menage.dart';
 import 'package:mob_collect_tax_pos/Home/select_annee.dart';
+import 'package:mob_collect_tax_pos/Home/select_compte.dart';
+import 'package:mob_collect_tax_pos/Home/select_exploitation.dart';
 import 'package:mob_collect_tax_pos/Home/select_mois.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:mob_collect_tax_pos/Home/select_entreprise.dart';
@@ -25,7 +27,18 @@ class _AddRecetteState extends State<AddRecette> {
       cCode = TextEditingController(),
       _edittxtDesignation = TextEditingController(),
       _edittxtDesignationMois = TextEditingController(),
-      _edittxtDesignationAnnee = TextEditingController();
+      _edittxtDesignationAnnee = TextEditingController(),
+      _edittxtQte = TextEditingController(),
+      _edittxtRecouvrement = TextEditingController(),
+      _edittxtDesignationExploitation = TextEditingController(),
+      _edittxtMarque = TextEditingController(),
+      _edittxtLieuChargement = TextEditingController(),
+      _edittxtDestination = TextEditingController(),
+      _edittxtBordereau = TextEditingController(),
+      _edittxtObservations = TextEditingController(),
+      _edittxtDesignationCompte = TextEditingController();
+
+  //qte,recouvrement,refExploitation,marque_vehicule,lieu_chargement,destination,bordereau,observations
   String? Code = "";
 
   void getCode() async {
@@ -219,7 +232,7 @@ class _AddRecetteState extends State<AddRecette> {
                         try {
                           double x = double.parse(value!);
                           if (value.toString() == "" || value.isEmpty) {
-                            return 'Entrer le montant en dollars (in \$ ).';
+                            return 'Entrer le Prix Unitaire en dollars (in \$ ).';
                           }
                         } catch (e) {
                           return 'Attention! Mauvais format du montant décimal.';
@@ -228,7 +241,280 @@ class _AddRecetteState extends State<AddRecette> {
                       keyboardType: TextInputType.number,
                       style: TextStyle(color: Color(0xff49A2B6)),
                       decoration: InputDecoration(
-                          labelText: 'Montant(FC)',
+                          labelText: 'PU(FC)',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtQte,
+                      enabled: true,
+                      validator: (value) {
+                        try {
+                          double x = double.parse(value!);
+                          if (value.toString() == "" || value.isEmpty) {
+                            return 'Entrer la Quantité';
+                          }
+                        } catch (e) {
+                          return 'Attention! Mauvais format de la quantité décimale.';
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Quantité',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                // Partie Catégorie Taxe + Exploitation corrigée :
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.remove_red_eye,
+                            color: MyColors.primaryColor),
+                      ),
+                      onTap: (() async {
+                        // Étape 1 : Sélection de la catégorie
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectCompte()),
+                        );
+
+                        // Rafraîchir l'affichage après sélection
+                        setState(() {
+                          _edittxtDesignationCompte.text =
+                              PubCon.DesignationCompte;
+                        });
+
+                        // Étape 2 : Si une catégorie valide est sélectionnée, ouvrir exploitation
+                        if (PubCon.refCompte != -1) {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectExploitation()),
+                          );
+
+                          setState(() {
+                            _edittxtDesignationExploitation.text =
+                                PubCon.DesignationExploitation;
+                          });
+                        }
+                      }),
+                    ),
+                    title: TextFormField(
+                      enabled: false,
+                      controller: _edittxtDesignationCompte,
+                      cursorColor: Colors.black,
+                      cursorWidth: 4,
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: 'Catégorie Taxe',
+                        labelStyle:
+                            TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(),
+                      ),
+                      validator: (val) => val?.isEmpty ?? true
+                          ? "Sélectionnez la Catégorie Taxe"
+                          : null,
+                    ),
+                  ),
+                ),
+
+                // Champ Exploitation corrigé (il ne lance plus rien, il affiche juste la valeur après la sélection)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    title: TextFormField(
+                      enabled: false,
+                      controller: _edittxtDesignationExploitation,
+                      cursorColor: Colors.black,
+                      cursorWidth: 4,
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: 'Exploitation',
+                        labelStyle:
+                            TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(),
+                      ),
+                      validator: (val) => val?.isEmpty ?? true
+                          ? "Sélectionnez le type d'Exploitation"
+                          : null,
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtRecouvrement,
+                      enabled: true,
+                      validator: (value) {
+                        try {
+                          double x = double.parse(value!);
+                          if (value.toString() == "" || value.isEmpty) {
+                            return 'Entrer le montant à recouvrer';
+                          }
+                        } catch (e) {
+                          return 'Attention! Mauvais format de la montant décimal.';
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Montant à Recouvrer',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtMarque,
+                      enabled: true,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Marque du Véhicule',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtLieuChargement,
+                      enabled: true,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Lieu de Chargement',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtDestination,
+                      enabled: true,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Destination',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtBordereau,
+                      enabled: true,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'N° Bordéreau',
+                          labelStyle:
+                              TextStyle(color: Color(0xff49A2B6), fontSize: 20),
+                          border: new OutlineInputBorder(),
+                          focusedBorder: new OutlineInputBorder()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(4.0),
+                    trailing: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.money, color: Colors.white),
+                      ),
+                    ),
+                    title: TextFormField(
+                      controller: _edittxtObservations,
+                      enabled: true,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Color(0xff49A2B6)),
+                      decoration: InputDecoration(
+                          labelText: 'Observations',
                           labelStyle:
                               TextStyle(color: Color(0xff49A2B6), fontSize: 20),
                           border: new OutlineInputBorder(),
@@ -356,7 +642,15 @@ class _AddRecetteState extends State<AddRecette> {
                                   saving = true;
                                 });
                                 Glossaire.insert_recette(
-                                    context, _edittxtMontant.text);
+                                    context,
+                                    _edittxtMontant.text,
+                                    _edittxtQte.text,
+                                    _edittxtRecouvrement.text,
+                                    _edittxtMarque.text,
+                                    _edittxtLieuChargement.text,
+                                    _edittxtDesignation.text,
+                                    _edittxtBordereau.text,
+                                    _edittxtObservations.text);
 
                                 setState(() {
                                   saving = false;

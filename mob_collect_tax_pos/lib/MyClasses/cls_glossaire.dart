@@ -67,7 +67,16 @@ class Glossaire {
   }
 
 //insert data into database
-  static Future insert_recette(BuildContext ctx, String montant) async {
+  static Future insert_recette(
+      BuildContext ctx,
+      String montant,
+      String qte,
+      String recouvrement,
+      String marque_vehicule,
+      String lieu_chargement,
+      String destination,
+      String bordereau,
+      String observations) async {
     try {
       var url =
           Uri.https('ffn-tshopo-bas-uele.site', 'api/insert_taxe_paiement');
@@ -76,10 +85,20 @@ class Glossaire {
         'refMois': PubCon.refMois.toString(),
         'refAnnee': PubCon.refAnnee.toString(),
         'refAgent': PubCon.id_agent.toString(),
+        'refCompte': PubCon.refCompte.toString(),
         'montant': montant.toString(),
-        'author': PubCon.noms_author
+        'author': PubCon.noms_author,
+        'qte': qte,
+        'recouvrement': recouvrement,
+        'refExploitation': PubCon.refExploitation.toString(),
+        'marque_vehicule': marque_vehicule,
+        'lieu_chargement': lieu_chargement,
+        'destination': destination,
+        'bordereau': bordereau,
+        'observations': observations
       });
-      print("refaneee: ${PubCon.refAnnee}, refMois: ${PubCon.refMois}");
+      print(
+          "refaneee: ${PubCon.refAnnee}, refMois: ${PubCon.refMois}, refExploitation: ${PubCon.refExploitation}");
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 

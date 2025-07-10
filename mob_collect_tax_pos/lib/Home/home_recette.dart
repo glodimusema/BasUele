@@ -242,14 +242,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ListTile(
                         title: Text(_posts[index]['colProprietaire_Ese']),
                         subtitle: Text(
-                            '${_posts[index]['categorietaxe']}\nMontant : ${_posts[index]['montant']}\nMois: ${_posts[index]['name_mois']}\nAnnée:${_posts[index]['name_annee']}\nDate:${_posts[index]['dateOperation']}\n'),
+                            '${_posts[index]['categorietaxe']}\nMontant : ${_posts[index]['montant_total']}\nQuotité: ${_posts[index]['montant_quotite']}\nMois: ${_posts[index]['name_mois']}\nAnnée:${_posts[index]['name_annee']}\nDate:${_posts[index]['dateOperation']}\n'),
                         trailing: IconButton(
                           icon: Icon(Icons.print),
                           color: MyColors.primaryColor,
                           iconSize: 40,
                           onPressed: () {
                             printONsenraiser(
-                                'No.${_posts[index]['id']}\n${_posts[index]['colProprietaire_Ese']}\n${_posts[index]['colQuartier_Ese']}\n${_posts[index]['colAdresseEntreprise_Ese']}\n${_posts[index]['entreprisePhone1']}\n${_posts[index]['motif']}\nMontant : ${_posts[index]['montant']}\nMois: ${_posts[index]['name_mois']}\nAnnée:${_posts[index]['name_annee']} \nAgent:${_posts[index]['author']}\nDate : ${_posts[index]['dateOperation']}');
+                                'No.${_posts[index]['id']}\n${_posts[index]['colProprietaire_Ese']}\n${_posts[index]['colQuartier_Ese']}\n${_posts[index]['colAdresseEntreprise_Ese']}\n${_posts[index]['entreprisePhone1']}\n${_posts[index]['motif']}\nMontant : ${_posts[index]['montant_total']}\nQuotité: ${_posts[index]['montant_quotite']}\nMois: ${_posts[index]['name_mois']}\nAnnée:${_posts[index]['name_annee']} \nAgent:${_posts[index]['author']}\nDate : ${_posts[index]['dateOperation']}');
                           },
                         ),
                       ),
