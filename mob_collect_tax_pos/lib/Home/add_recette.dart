@@ -109,7 +109,7 @@ class _AddRecetteState extends State<AddRecette> {
                       cursorWidth: 4,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
-                          labelText: 'Code du Menage',
+                          labelText: 'Id note de début',
                           labelStyle:
                               TextStyle(color: Color(0xff49A2B6), fontSize: 20),
                           border: new OutlineInputBorder(),

@@ -70,7 +70,7 @@ class _CompanyFrmState extends State<CompanyFrm> {
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text("Menage",
+        title: Text("Contribuable",
             style: TextStyle(
               color: Colors.black,
             )),
@@ -336,14 +336,13 @@ class _CompanyFrmState extends State<CompanyFrm> {
                           cursorWidth: 4,
                           style: TextStyle(color: Colors.black, fontSize: 18),
                           decoration: InputDecoration(
-                              labelText: 'Quartier',
+                              labelText: 'Site',
                               labelStyle: TextStyle(
                                   color: Color(0xff49A2B6), fontSize: 20),
                               border: new OutlineInputBorder(),
                               focusedBorder: new OutlineInputBorder()),
-                          validator: (val) => val?.length == 0
-                              ? "Selectionnez le Quartier"
-                              : null,
+                          validator: (val) =>
+                              val?.length == 0 ? "Selectionnez le Site" : null,
                           onSaved: (val) => this.Quartier = val,
                         ),
                       ),

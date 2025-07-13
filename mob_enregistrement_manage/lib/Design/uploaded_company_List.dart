@@ -32,7 +32,7 @@ class UploadedCompaniesState extends State<UploadedCompanies> {
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: MyColors.backgroundColor,
-        title: Text('Les Menages synchronisés'),
+        title: Text('Les Contribuables synchronisés'),
       ),
       body: new Container(
         padding: EdgeInsets.all(0.0),
@@ -45,7 +45,7 @@ class UploadedCompaniesState extends State<UploadedCompanies> {
                   return Container(
                     alignment: AlignmentDirectional.center,
                     child: Text(
-                      'Aucun Menage trouvé!',
+                      'Aucun Contribuable trouvé!',
                       style: TextStyle(
                           color: MyColors.primaryColor,
                           fontWeight: FontWeight.normal,
@@ -133,7 +133,7 @@ class UploadedCompaniesState extends State<UploadedCompanies> {
                       });
                 }
               } else {
-                return Text('Aucun Menage trouvé!',
+                return Text('Aucun Contribuable trouvé!',
                     style: TextStyle(color: MyColors.primaryColor));
               }
             }

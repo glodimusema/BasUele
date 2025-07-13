@@ -39,7 +39,7 @@ class CompanyListsState extends State<CompanyLists> {
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: MyColors.backgroundColor,
-        title: Text('Liste des Menages'),
+        title: Text('Liste des Contribuables'),
         actions: [
           InkWell(
             child: Icon(Icons.logout),
@@ -71,7 +71,7 @@ class CompanyListsState extends State<CompanyLists> {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        'Nouveau Menage',
+                        'Nouveau Contribuable',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
@@ -104,7 +104,7 @@ class CompanyListsState extends State<CompanyLists> {
                   return Container(
                     alignment: AlignmentDirectional.center,
                     child: Text(
-                      'Aucun enregistrement trouvé.\nMerci de créer un nouveau Menage!',
+                      'Aucun enregistrement trouvé.\nMerci de créer un nouveau Contribuable!',
                       style: TextStyle(
                           color: MyColors.primaryColor,
                           fontWeight: FontWeight.normal,
@@ -179,7 +179,7 @@ class CompanyListsState extends State<CompanyLists> {
                                         //   style: TextStyle(color: Colors.black),
                                         // ),
                                         Text(
-                                          'Quartier : ${snapshot.data?[index].colQuartier_Ese}',
+                                          'Site Affectation : ${snapshot.data?[index].colQuartier_Ese}',
                                           style: TextStyle(color: Colors.black),
                                         ),
                                         Text(

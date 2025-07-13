@@ -78,7 +78,7 @@ class DBHelper {
 
     //insertion quartiers
     await db.execute(
-        "INSERT INTO $quartierTable($colDesignation_quartier,$colCode_quartier) VALUES('KAHEMBE','102-102'),('MURARA','102-109'),('BUJOVU','102-101'),('MAJENGO','102-107'),('MABANGA NORD','102-105'),('MABANGA SUD','102-106'),('KASIKA','102-103'),('KATOYI','102-104'),('NDOSHO','102-110'),('MUGUNGA','102-108'),('VIRUNGA','102-111'),('MIKENO','101-107'),('MAPENDO','101-106'),('LES VOLCANS','101-105'),('KATINDO','101-102'),('KESHERO','101-103'),('HIMBI','101-101'),('LAC-VERT','101-104')");
+        "INSERT INTO $quartierTable($colDesignation_quartier,$colCode_quartier) VALUES ('Makiso', '00'),('Kisangani', '00'),('Lubunga', '000'),('Kabondo', '000'),('Tshopo', '000'),('Mangobo', '000'),('Kongakonga/Cimesta', '000'),('SPK12 RN4', 'UB'),('SPK(23) RN4&LUBUTU', 'UB'),('SPK121 RN4', 'UB'),('SITE1 UCBE', 'UB'),('SITE2 UCBE', 'UB'),('SITE3 UCBE', 'UB'),('S.CIMESTAN', 'UB'),('S.KIKONGO', 'UB'),('S.LUBUNGA', 'UB'),('SKBB&E', 'KIS'),('S.DU CANON', 'KIS'),('S.LITOYI & E', 'KIS'),('S.RIVE DROITE TSHOPO', 'KIS'),('S.MOIAT&E', 'KIS'),('SPK6RTE AERO&E', 'KIS'),('S.MANGOBO', 'KIS'),('S.ASPIRO', 'KIS'),('S.TEBEE', 'KIS')");
     //insertion categories
     await db.execute(
         "INSERT INTO $categorieTable($colDesignation_cat,$colMontant_Nom_cat,$colMontant_cat) VALUES ('Taxe Abbatage(A)', '5', '5')");

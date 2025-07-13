@@ -24,7 +24,7 @@ class QuartiersListsState extends State<QuartiersLists> {
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: MyColors.backgroundColor,
-        title: Text('List des Quartiers'),
+        title: Text('List des Sites'),
       ),
       body: new Container(
         padding: EdgeInsets.all(0.0),
@@ -37,7 +37,7 @@ class QuartiersListsState extends State<QuartiersLists> {
                   return Container(
                     alignment: AlignmentDirectional.center,
                     child: Text(
-                      'Aucun Quartier trouvé.\n',
+                      'Aucun Site trouvé.\n',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
@@ -95,7 +95,7 @@ class QuartiersListsState extends State<QuartiersLists> {
                                             padding: const EdgeInsets.only(
                                                 bottom: 8.0, top: 8.0),
                                             child: Text(
-                                              'Quartier : ${snapshot.data?[index].colDesignation_quartier}',
+                                              'Sites : ${snapshot.data?[index].colDesignation_quartier}',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 14),
@@ -117,7 +117,7 @@ class QuartiersListsState extends State<QuartiersLists> {
                       });
                 }
               } else {
-                return Text('Aucun Quartier trouvé.\n',
+                return Text('Aucun Site trouvé.\n',
                     style: TextStyle(color: Colors.white));
               }
             }
