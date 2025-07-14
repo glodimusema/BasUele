@@ -179,7 +179,7 @@ class CompanyListsState extends State<CompanyLists> {
                                         //   style: TextStyle(color: Colors.black),
                                         // ),
                                         Text(
-                                          'Site Affectation : ${snapshot.data?[index].colQuartier_Ese}',
+                                          "Site d'Enregistrement : ${snapshot.data?[index].colQuartier_Ese}",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                         Text(
